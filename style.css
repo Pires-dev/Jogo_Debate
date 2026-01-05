@@ -52,10 +52,10 @@
 }
 
 .caixa-de-msg {
-    background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+    background: linear-gradient(135deg, #390496  0%, #8135c9 100%);
     border-radius: 1.5rem;
     border-top-right-radius: 0.25rem;
-    box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
+    box-shadow: 0 10px 25px rgb(4, 2, 109);
     transition: transform 0.2s;
     color: #ffffff;
 }
@@ -469,13 +469,6 @@ button.botao-termo:active {
     gap: 0.75rem;
 }
 
-.item-desafio:hover {
-    background: rgba(168, 85, 247, 0.2);
-    border-color: rgba(168, 85, 247, 0.5);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
-}
-
 .item-desafio p {
     margin: 0;
     line-height: 1.5;
@@ -527,42 +520,73 @@ button.botao-termo:active {
 /* === SISTEMA DE TEMAS === */
 
 /* Tema Escuro (padrão) */
-:root {
-    --cor-fundo-principal: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-    --cor-containers: rgba(55, 65, 81, 0.6);
+body {
+    background-image: linear-gradient(135deg, #000000 0%, #4c1d95 100%) !important;
+    background-attachment: fixed !important;
+    transition: background-image 0.5s ease !important;
 }
 
 /* Tema Claro */
 body.tema-claro {
-    --cor-fundo-principal: linear-gradient(135deg, #00d4ff 0%, #ffffff 100%);
-    --cor-containers: rgba(55, 65, 81, 0.6);
-}
-
-/* Aplicar fundo */
-body {
-    background: var(--cor-fundo-principal);
-    background-attachment: fixed;
-    transition: background 0.5s ease;
+    background-image: linear-gradient(135deg, #00d4ff 0%, #ffffff 100%) !important;
 }
 
 /* Containers no modo escuro */
 body:not(.tema-claro) #historico_debate,
 body:not(.tema-claro) .bg-gray-800\/50 {
-    background: var(--cor-containers) !important;
+    background: rgba(55, 65, 81, 0.6) !important;
 }
 
 body:not(.tema-claro) #afirmacao-do-usuario {
-    background: var(--cor-containers) !important;
+    background: rgba(55, 65, 81, 0.6) !important;
 }
 
 body:not(.tema-claro) .msg-IA,
 body:not(.tema-claro) .msg-carregando {
-    background: var(--cor-containers) !important;
+    background: rgba(55, 65, 81, 0.6) !important;
 }
 
-/* Botão debater - sempre com gradiente roxo-pink */
+/* Containers e botões no modo claro */
+body.tema-claro #historico_debate,
+body.tema-claro .bg-gray-800\/50 {
+    background: rgba(30, 41, 59, 0.85) !important;
+}
+
+body.tema-claro #afirmacao-do-usuario {
+    background: rgba(30, 41, 59, 0.7) !important;
+}
+
+body.tema-claro .msg-IA,
+body.tema-claro .msg-carregando {
+    background: rgba(30, 41, 59, 0.7) !important;
+}
+
+body.tema-claro button.botao-termo {
+    background: rgba(30, 41, 59, 0.5) !important;
+    border-color: rgba(30, 41, 59, 0.6) !important;
+}
+
+body.tema-claro button.botao-termo:hover {
+    background: rgba(30, 41, 59, 0.7) !important;
+}
+
+/* Subtítulo no modo claro */
+body.tema-claro header p {
+    color: #000000 !important;
+    font-weight: 500;
+}
+
+/* Título - roxo em ambos os modos */
+header h1 {
+    background: linear-gradient(135deg, #220553 0%, #8d3edb 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Botão debater - roxo em ambos os modos */
 #botao-debater {
-    background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%) !important;
+    background: linear-gradient(135deg, #400b9b 0%, #4d2edab2 100%) !important;
 }
 
 /* Ícone do botão de tema */
@@ -571,11 +595,151 @@ body.tema-claro #botao-mudar-tema i::before {
 }
 
 /* Transições suaves */
-body,
 #historico_debate,
 .bg-gray-800\/50,
 #afirmacao-do-usuario,
 .msg-IA,
-.msg-carregando {
-    transition: background 0.5s ease, background-color 0.5s ease;
+.msg-carregando,
+button.botao-termo,
+header p {
+    transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease !important;
+}
+
+
+/* === Modal de Confirmação === */
+.modal-confirmacao-pequeno {
+    max-width: 500px !important;
+    padding: 2rem !important;
+}
+
+.texto-confirmacao {
+    color: var(--cor-texto-secundario, #9ca3af);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 1.5rem 0 2rem 0;
+    text-align: center;
+}
+
+body.tema-claro .texto-confirmacao {
+    color: #1e293b;
+}
+
+.botoes-confirmacao {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.botao-cancelar,
+.botao-confirmar-perigo {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.botao-cancelar {
+    background: rgba(100, 116, 139, 0.2);
+    color: #e5e7eb;
+    border: 2px solid rgba(100, 116, 139, 0.4);
+}
+
+.botao-cancelar:hover {
+    background: rgba(100, 116, 139, 0.3);
+    border-color: rgba(100, 116, 139, 0.6);
+    transform: translateY(-2px);
+}
+
+body.tema-claro .botao-cancelar {
+    background: rgba(100, 116, 139, 0.15);
+    color: #1e293b;
+    border-color: rgba(100, 116, 139, 0.5);
+}
+
+body.tema-claro .botao-cancelar:hover {
+    background: rgba(100, 116, 139, 0.25);
+}
+
+.botao-confirmar-perigo {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: #ffffff;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.botao-confirmar-perigo:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+.botao-confirmar-perigo:active {
+    transform: translateY(0);
+}
+
+/* === Notificações === */
+.notificacao {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    font-size: 1rem;
+    z-index: 9999;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+}
+
+.notificacao-visivel {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notificacao-sucesso {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    border: 2px solid rgba(16, 185, 129, 0.4);
+}
+
+.notificacao-erro {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: #ffffff;
+    border: 2px solid rgba(239, 68, 68, 0.4);
+}
+
+.notificacao i {
+    font-size: 1.25rem;
+}
+
+/* Responsivo para notificações */
+@media (max-width: 640px) {
+    .notificacao {
+        right: 10px;
+        left: 10px;
+        top: 10px;
+    }
+    
+    .botoes-confirmacao {
+        flex-direction: column;
+    }
+    
+    .botao-cancelar,
+    .botao-confirmar-perigo {
+        width: 100%;
+    }
 }
