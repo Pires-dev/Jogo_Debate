@@ -133,6 +133,12 @@ async def apagar_historico():
     CHAT_HISTORICO = []
     return {"status": "success"}
 
+@app.post("/limpar-historico")
+async def limpar_historico():
+    global CHAT_HISTORICO
+    CHAT_HISTORICO = []
+    return {"status": "ok"}
+
 
 if __name__ == "__main__":
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
