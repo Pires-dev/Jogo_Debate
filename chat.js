@@ -1,9 +1,9 @@
 (() => {
+    
     const form = document.getElementById("formulario-debate");
     const input = document.getElementById("afirmacao-do-usuario");
     const btnDebater = document.getElementById("botao-debater");
     const historico = document.getElementById("historico_debate");
-    const btnLimpar = document.getElementById("apagar-historico");
     const contador = document.getElementById("contador-de-caracteres");
 
     const templateUsuario = document.getElementById("template-msg-usuario");
@@ -14,6 +14,8 @@
     const LIMITE_AVISO = 400;
     const LIMITE_PERIGO = 480;
     const TIMEOUT = 20000;
+
+    
 
     function rolagemAutomatica() {
         historico.scrollTop = historico.scrollHeight;
@@ -166,38 +168,132 @@
         }
     });
 
-    btnLimpar.addEventListener('click', async (e) => {
-        e.preventDefault();
-
-        const confirmacao = confirm('Deseja realmente limpar o histórico do debate?');
-        if (!confirmacao) return;
-
-        try {
-            btnLimpar.disabled = true;
-            
-            const resposta = await fetch('/reset', { 
-                method: 'POST' 
-            });
-
-            if (!resposta.ok) {
-                alert('Falha ao limpar histórico no servidor.');
-                return;
-            }
-
-            limparHistoricoDOM();
-
-        } catch (erro) {
-            console.error('Erro ao chamar /reset:', erro);
-            alert('Erro de rede ao limpar histórico.');
-        } finally {
-            btnLimpar.disabled = false;
-        }
-    });
-
     atualizarContador();
 
     window.addEventListener('load', () => {
         input.focus();
     });
 
+
+
+    // === Modal de Sugestões de Temas ===
+const btnSugerirTemas = document.getElementById("botao-sugerir-temas");
+const modalSugestoes = document.getElementById("modal-sugestoes-temas");
+const btnFecharModal = document.getElementById("fechar-modal-temas");
+const itensTemas = document.querySelectorAll(".item-tema");
+
+function abrirModalTemas() {
+    modalSugestoes.classList.remove("escondido");
+    document.body.style.overflow = "hidden";
+}
+
+function fecharModalTemas() {
+    modalSugestoes.classList.add("escondido");
+    document.body.style.overflow = "auto";
+}
+
+function preencherInputComTema(textoTema) {
+    const textoLimpo = textoTema.replace("• ", "").trim();
+    input.value = textoLimpo;
+    atualizarContador();
+    fecharModalTemas();
+    input.focus();
+}
+
+// Event Listeners
+btnSugerirTemas.addEventListener("click", abrirModalTemas);
+btnFecharModal.addEventListener("click", fecharModalTemas);
+
+// Clicar nos temas para preencher o input
+itensTemas.forEach(item => {
+    item.addEventListener("click", () => {
+        preencherInputComTema(item.textContent);
+    });
+});
+
+// Fechar modal ao clicar fora
+modalSugestoes.addEventListener("click", (e) => {
+    if (e.target === modalSugestoes) {
+        fecharModalTemas();
+    }
+});
+
+
+
+// === Modal de Desafios ===
+const btnMostrarDesafios = document.getElementById("botao-mostrar-desafios");
+const modalDesafios = document.getElementById("modal-desafios");
+const btnFecharModalDesafios = document.getElementById("fechar-modal-desafios");
+const itensDesafios = document.querySelectorAll(".item-desafio");
+
+function abrirModalDesafios() {
+    modalDesafios.classList.remove("escondido");
+    document.body.style.overflow = "hidden";
+}
+
+function fecharModalDesafios() {
+    modalDesafios.classList.add("escondido");
+    document.body.style.overflow = "auto";
+}
+
+// Event Listeners para Desafios
+btnMostrarDesafios.addEventListener("click", abrirModalDesafios);
+btnFecharModalDesafios.addEventListener("click", fecharModalDesafios);
+
+// Fechar modal ao clicar fora
+modalDesafios.addEventListener("click", (e) => {
+    if (e.target === modalDesafios) {
+        fecharModalDesafios();
+    }
+});
+
+
+// === Sistema de Tema Claro/Escuro ===
+    const btnMudarTema = document.getElementById("botao-mudar-tema");
+    const CHAVE_TEMA = "tema-discussao-merda";
+
+    function aplicarTema(tema) {
+        if (tema === "claro") {
+            document.body.classList.add("tema-claro");
+            localStorage.setItem(CHAVE_TEMA, "claro");
+        } else {
+            document.body.classList.remove("tema-claro");
+            localStorage.setItem(CHAVE_TEMA, "escuro");
+        }
+    }
+
+    function alternarTema() {
+        const temaAtual = document.body.classList.contains("tema-claro") ? "claro" : "escuro";
+        const novoTema = temaAtual === "escuro" ? "claro" : "escuro";
+        aplicarTema(novoTema);
+    }
+
+    function carregarTemaPreferido() {
+        const temaSalvo = localStorage.getItem(CHAVE_TEMA);
+        
+        if (temaSalvo) {
+            aplicarTema(temaSalvo);
+        } else {
+            // Detectar preferência do sistema
+            const prefereTemaEscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            aplicarTema(prefereTemaEscuro ? "escuro" : "claro");
+        }
+    }
+
+    // Event Listener para o botão de tema
+    if (btnMudarTema) {
+        btnMudarTema.addEventListener("click", alternarTema);
+    }
+
+    // Carregar tema ao iniciar
+    carregarTemaPreferido();
+
+    // Detectar mudanças na preferência do sistema
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        if (!localStorage.getItem(CHAVE_TEMA)) {
+            aplicarTema(e.matches ? "escuro" : "claro");
+        }
+    });
+
 })();
+
