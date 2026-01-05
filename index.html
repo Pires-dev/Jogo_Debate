@@ -1,19 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %} Debate - Advogado do Djhuabo{% endblock %}
+{% block title %} Debate - Discussão Merda{% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-8 max-w-4xl">
 
     <header class="text-center mb-8">
         <h1 class="text-5xl font-bold mb-2 bg-clip-text text-transparent
-                   bg-gradient-to-r from-purple-400 to-pink-600">
-             Advogado do Djhuabo
+                   bg-gradient-to-r from-purple-400 to-pink-600 titulo-animado">
+             Discussão Merda
         </h1>
         <p class="text-gray-300 text-lg">
             Escreva uma afirmação duvidosa e descubra se tem direito de fala!
         </p>
     </header>
+
+   <div class="container-botoes-topo">
+    
+    <div class="botoes-topo-esquerda">
+        <button id="botao-sugerir-temas" class="botao-termo" title="Sugerir temas">
+            <i class="fas fa-lightbulb"></i>
+        </button>
+
+        <button id="botao-mostrar-desafios" class="botao-termo" title="Mostrar desafios">
+            <i class="fas fa-trophy"></i>
+        </button>
+    </div>
+
+    <div class="botoes-topo-direita">
+        <button id="botao-mudar-tema" class="botao-termo" title="Mudar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button id="botao-limpar-tudo" class="botao-termo" title="Apagar histórico">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+</div>
 
     <!-- Histórico -->
     <div id="historico_debate"
@@ -46,7 +68,7 @@
                     <div class="flex items-center mb-2">
                         <i class="fas fa-robot text-2xl mr-2 text-purple-400"></i>
                         <span class="font-semibold text-purple-300">
-                            DebatedorIA
+                            Moggador
                         </span>
                     </div>
                     <p class="txt-IA"></p>
@@ -100,13 +122,111 @@
         </div>
     </div>
 
-    <!-- Limpar -->
-    <div class="text-center mt-6">
-        <button id="apagar-historico"
-                class="text-gray-400 hover:text-white underline text-sm">
-            <i class="fas fa-trash-alt mr-1"></i>
-            Limpar histórico
-        </button>
+</div>
+
+        <!-- Modal de Sugestões de Temas -->
+<div id="modal-sugestoes-temas" class="modal-overlay escondido">
+    <div class="modal-conteudo">
+        <div class="modal-cabecalho">
+            <h2 class="modal-titulo">💡 Sugestões de Temas</h2>
+            <button id="fechar-modal-temas" class="botao-fechar-modal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <p class="modal-subtitulo">
+            Essas são umas ideias de temas para, você que não tem criatividade, se basear
+        </p>
+        
+        <div class="lista-temas-grid">
+            <div class="coluna-temas">
+                <div class="item-tema">• A Terra é plana</div>
+                <div class="item-tema">• Pineapple pertence na pizza</div>
+                <div class="item-tema">• Café é melhor que chá</div>
+                <div class="item-tema">• Gatos são superiores a cães</div>
+            </div>
+            
+            <div class="coluna-temas">
+                <div class="item-tema">• IA vai dominar o mundo</div>
+                <div class="item-tema">• Trabalho remoto é o futuro</div>
+                <div class="item-tema">• Redes sociais são prejudiciais</div>
+                <div class="item-tema">• Videogame é esporte</div>
+            </div>
+            
+            <div class="coluna-temas">
+                <div class="item-tema">• Streaming matou o cinema</div>
+                <div class="item-tema">• Escola tradicional está obsoleta</div>
+                <div class="item-tema">• Criptomoedas são o futuro</div>
+                <div class="item-tema">• Arte feita por IA é arte</div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+
+<!-- Modal de Desafios -->
+<div id="modal-desafios" class="modal-overlay escondido">
+    <div class="modal-conteudo">
+        <div class="modal-cabecalho">
+            <h2 class="modal-titulo">🏆 Desafios de Debate</h2>
+            <button id="fechar-modal-desafios" class="botao-fechar-modal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <p class="modal-subtitulo">
+            Aceite um desafio e prove suas habilidades de argumentação!
+        </p>
+        
+        <div class="lista-desafios-grid">
+            <div class="coluna-desafios">
+                <div class="item-desafio" data-dificuldade="facil">
+                    <span class="badge-dificuldade facil">Fácil</span>
+                    <p>Defenda que o pão francês é superior ao pão de forma</p>
+                </div>
+                <div class="item-desafio" data-dificuldade="medio">
+                    <span class="badge-dificuldade medio">Médio</span>
+                    <p>Argumente que segunda-feira é o melhor dia da semana</p>
+                </div>
+                <div class="item-desafio" data-dificuldade="dificil">
+                    <span class="badge-dificuldade dificil">Difícil</span>
+                    <p>Convença que números pares são mais importantes que ímpares</p>
+                </div>
+            </div>
+            
+            <div class="coluna-desafios">
+                <div class="item-desafio" data-dificuldade="facil">
+                    <span class="badge-dificuldade facil">Fácil</span>
+                    <p>Prove que o inverno é melhor que o verão</p>
+                </div>
+                <div class="item-desafio" data-dificuldade="medio">
+                    <span class="badge-dificuldade medio">Médio</span>
+                    <p>Defenda que dormir tarde é mais produtivo</p>
+                </div>
+                <div class="item-desafio" data-dificuldade="dificil">
+                    <span class="badge-dificuldade dificil">Difícil</span>
+                    <p>Argumente que silêncio é melhor que música</p>
+                </div>
+            </div>
+            
+            <div class="coluna-desafios">
+                <div class="item-desafio" data-dificuldade="facil">
+                    <span class="badge-dificuldade facil">Fácil</span>
+                    <p>Mostre que filme dublado é superior ao legendado</p>
+                </div>
+                <div class="item-desafio" data-dificuldade="medio">
+                    <span class="badge-dificuldade medio">Médio</span>
+                    <p>Prove que o caos é melhor que a organização</p>
+                </div>
+                <div class="item-desafio" data-dificuldade="dificil">
+                    <span class="badge-dificuldade dificil">Difícil</span>
+                    <p>Convença que não ter opinião é a melhor opinião</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
