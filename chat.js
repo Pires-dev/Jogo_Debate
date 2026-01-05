@@ -288,12 +288,149 @@ modalDesafios.addEventListener("click", (e) => {
     // Carregar tema ao iniciar
     carregarTemaPreferido();
 
+
+    // === Limpar histórico da IA ao carregar página ===
+    async function limparHistoricoIA() {
+        try {
+            await fetch('/limpar-historico', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+        } catch (erro) {
+            console.error('Erro ao limpar histórico:', erro);
+        }
+    }
+
+    // Limpar ao carregar a página
+    limparHistoricoIA();
+
+
     // Detectar mudanças na preferência do sistema
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
         if (!localStorage.getItem(CHAVE_TEMA)) {
             aplicarTema(e.matches ? "escuro" : "claro");
         }
     });
+
+
+
+    // === Função de Apagar Histórico ===
+    const btnLimparTudo = document.getElementById("botao-limpar-tudo");
+
+    function confirmarLimpezaHistorico() {
+        // Criar modal de confirmação
+        const modalConfirmacao = document.createElement('div');
+        modalConfirmacao.className = 'modal-overlay';
+        modalConfirmacao.id = 'modal-confirmacao-limpeza';
+        
+        modalConfirmacao.innerHTML = `
+            <div class="modal-conteudo modal-confirmacao-pequeno">
+                <div class="modal-cabecalho">
+                    <h2 class="modal-titulo">🗑️ Apagar Histórico</h2>
+                </div>
+                
+                <p class="texto-confirmacao">
+                    Tem certeza que deseja apagar todo o histórico de debates?
+                    Esta ação não pode ser desfeita.
+                </p>
+                
+                <div class="botoes-confirmacao">
+                    <button id="btn-cancelar-limpeza" class="botao-cancelar">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+                    <button id="btn-confirmar-limpeza" class="botao-confirmar-perigo">
+                        <i class="fas fa-trash-alt"></i>
+                        Apagar Tudo
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modalConfirmacao);
+        document.body.style.overflow = "hidden";
+        
+        // Animar entrada do modal
+        setTimeout(() => {
+            modalConfirmacao.classList.remove('escondido');
+        }, 10);
+        
+        // Botão cancelar
+        const btnCancelar = document.getElementById('btn-cancelar-limpeza');
+        btnCancelar.addEventListener('click', () => {
+            fecharModalConfirmacao();
+        });
+        
+        // Botão confirmar
+        const btnConfirmar = document.getElementById('btn-confirmar-limpeza');
+        btnConfirmar.addEventListener('click', () => {
+            limparHistoricoCompleto();
+            fecharModalConfirmacao();
+        });
+        
+        // Fechar ao clicar fora
+        modalConfirmacao.addEventListener('click', (e) => {
+            if (e.target === modalConfirmacao) {
+                fecharModalConfirmacao();
+            }
+        });
+        
+        // Fechar com ESC
+        const teclaEsc = (e) => {
+            if (e.key === 'Escape') {
+                fecharModalConfirmacao();
+                document.removeEventListener('keydown', teclaEsc);
+            }
+        };
+        document.addEventListener('keydown', teclaEsc);
+    }
+
+    function fecharModalConfirmacao() {
+        const modal = document.getElementById('modal-confirmacao-limpeza');
+        if (modal) {
+            modal.classList.add('escondido');
+            document.body.style.overflow = "auto";
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
+        }
+    }
+
+    function limparHistoricoCompleto() {
+        limparHistoricoDOM();
+        
+        // Mostrar notificação de sucesso
+        mostrarNotificacao('Histórico apagado com sucesso!', 'sucesso');
+    }
+
+    function mostrarNotificacao(mensagem, tipo) {
+        const notificacao = document.createElement('div');
+        notificacao.className = `notificacao notificacao-${tipo}`;
+        notificacao.innerHTML = `
+            <i class="fas ${tipo === 'sucesso' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            <span>${mensagem}</span>
+        `;
+        
+        document.body.appendChild(notificacao);
+        
+        // Animar entrada
+        setTimeout(() => {
+            notificacao.classList.add('notificacao-visivel');
+        }, 10);
+        
+        // Remover após 3 segundos
+        setTimeout(() => {
+            notificacao.classList.remove('notificacao-visivel');
+            setTimeout(() => {
+                notificacao.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    // Event Listener para o botão de limpar histórico
+    if (btnLimparTudo) {
+        btnLimparTudo.addEventListener('click', confirmarLimpezaHistorico);
+    }
 
 })();
 
