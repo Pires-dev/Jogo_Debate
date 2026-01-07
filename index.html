@@ -1,47 +1,60 @@
 {% extends "base.html" %}
 
+<!-- Define o título que aparece na aba do navegador -->
 {% block title %}Papo de Beta{% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-8 max-w-4xl">
 
+    <!-- ===== CABEÇALHO ===== -->
     <header class="text-center mb-8">
+        <!-- Título principal com gradiente roxo-rosa -->
         <h1 class="text-5xl font-bold mb-2 bg-clip-text text-transparent
                    bg-gradient-to-r from-purple-400 to-pink-600 titulo-animado">
              Papo de Beta
         </h1>
+        <!-- Subtítulo explicativo -->
         <p class="text-gray-300 text-lg">
             Escreva uma afirmação duvidosa e descubra se tem direito de fala!
         </p>
     </header>
 
-   <div class="container-botoes-topo">
-    
-    <div class="botoes-topo-esquerda">
-        <button id="botao-sugerir-temas" class="botao-termo" title="Sugerir temas">
-            <i class="fas fa-lightbulb"></i>
-        </button>
+    <!-- ===== BARRA DE BOTÕES NO TOPO ===== -->
+    <div class="container-botoes-topo">
+        
+        <!-- Botões do lado esquerdo -->
+        <div class="botoes-topo-esquerda">
+            <!-- Botão para abrir modal de sugestões de temas -->
+            <button id="botao-sugerir-temas" class="botao-termo" title="Sugerir temas">
+                <i class="fas fa-lightbulb"></i>
+            </button>
 
-        <button id="botao-mostrar-desafios" class="botao-termo" title="Mostrar desafios">
-            <i class="fas fa-trophy"></i>
-        </button>
+            <!-- Botão para abrir modal de desafios -->
+            <button id="botao-mostrar-desafios" class="botao-termo" title="Mostrar desafios">
+                <i class="fas fa-trophy"></i>
+            </button>
+        </div>
+
+        <!-- Botões do lado direito -->
+        <div class="botoes-topo-direita">
+            <!-- Botão para alternar entre tema claro e escuro -->
+            <button id="botao-mudar-tema" class="botao-termo" title="Mudar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <!-- Botão para apagar todo o histórico de debate -->
+            <button id="botao-limpar-tudo" class="botao-termo" title="Apagar histórico">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
 
-    <div class="botoes-topo-direita">
-        <button id="botao-mudar-tema" class="botao-termo" title="Mudar tema">
-            <i class="fas fa-moon"></i>
-        </button>
-        <button id="botao-limpar-tudo" class="botao-termo" title="Apagar histórico">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-    </div>
-</div>
-
-    <!-- Histórico -->
+    <!-- ===== ÁREA DO HISTÓRICO DE MENSAGENS ===== -->
     <div id="historico_debate"
          class="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl
                 p-6 mb-6 min-h-[400px] max-h-[500px] overflow-y-auto">
 
+        <!-- Mensagem inicial quando não há debates -->
         <div class="text-center text-gray-400 py-20">
             <i class="fas fa-comments text-6xl mb-4 opacity-50"></i>
             <p class="text-xl">
@@ -49,7 +62,9 @@
             </p>
         </div>
 
-        <!-- Templates JS -->
+        <!-- ===== TEMPLATES HTML (usados pelo JavaScript) ===== -->
+        
+        <!-- Template para mensagem do usuário -->
         <template id="template-msg-usuario">
             <div class="flex justify-end mb-4 animacao-da-msg">
                 <div class="caixa-de-msg px-6 py-4 max-w-[80%]">
@@ -57,29 +72,34 @@
                         <i class="fas fa-user-circle text-2xl mr-2"></i>
                         <span class="font-semibold">Você</span>
                     </div>
+                    <!-- O texto será inserido aqui pelo JavaScript -->
                     <p class="txt-do-usuario"></p>
                 </div>
             </div>
         </template>
 
+        <!-- Template para mensagem da IA -->
         <template id="template-msg-IA">
             <div class="flex justify-start mb-4 animacao-da-msg">
                 <div class="msg-IA px-6 py-4 max-w-[80%]">
                     <div class="flex items-center mb-2">
-                        <i class="fas fa-robot text-2xl mr-2 text-purple-400"></i>
+                        <i class="fas fa-crown text-2xl mr-2 text-purple-400"></i>
                         <span class="font-semibold text-purple-300">
                             Moggador
                         </span>
                     </div>
+                    <!-- O texto será inserido aqui pelo JavaScript -->
                     <p class="txt-IA"></p>
                 </div>
             </div>
         </template>
 
+        <!-- Template para indicador de "pensando..." -->
         <template id="IA-pensando">
             <div class="flex justify-start mb-4">
                 <div class="msg-carregando px-6 py-4">
                     <div class="flex items-center space-x-2">
+                        <!-- Três bolinhas animadas -->
                         <div class="animacao-carregando"></div>
                         <div class="animacao-carregando"
                              style="animation-delay:0.1s"></div>
@@ -94,9 +114,10 @@
         </template>
     </div>
 
-    <!-- Form -->
+    <!-- ===== FORMULÁRIO DE ENTRADA ===== -->
     <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-6">
         <form id="formulario-debate" class="flex flex-col sm:flex-row gap-4">
+            <!-- Campo de texto para digitar o argumento -->
             <input
                 type="text"
                 id="afirmacao-do-usuario"
@@ -108,15 +129,16 @@
                        focus:ring-purple-500 border border-gray-600
                        placeholder-gray-400">
 
+            <!-- Botão para enviar a mensagem -->
             <button type="submit" id="botao-debater"
-                    class="bg-gradient-to-r from-purple-600 to-pink-600
-                           text-white font-bold py-4 px-8 rounded-xl
+                    class="text-white font-bold py-4 px-8 rounded-xl
                            shadow-lg flex items-center gap-2">
                 <i class="fas fa-paper-plane"></i>
                 Debater
             </button>
         </form>
 
+        <!-- Contador de caracteres digitados -->
         <div class="mt-3 text-right text-gray-400 text-sm">
             <span id="contador-de-caracteres">0</span>/500 caracteres
         </div>
@@ -124,9 +146,10 @@
 
 </div>
 
-        <!-- Modal de Sugestões de Temas -->
+<!-- ===== MODAL DE SUGESTÕES DE TEMAS ===== -->
 <div id="modal-sugestoes-temas" class="modal-overlay escondido">
     <div class="modal-conteudo">
+        <!-- Cabeçalho do modal -->
         <div class="modal-cabecalho">
             <h2 class="modal-titulo">💡 Sugestões de Temas</h2>
             <button id="fechar-modal-temas" class="botao-fechar-modal">
@@ -138,26 +161,27 @@
             Essas são umas ideias de temas para você, que não tem criatividade, se basear
         </p>
         
+        <!-- Grid com 3 colunas de temas -->
         <div class="lista-temas-grid">
             <div class="coluna-temas">
                 <div class="item-tema">• A Terra é plana</div>
-                <div class="item-tema">• Jogos 3d são melhores que 2d</div>
+                <div class="item-tema">• Jogos 3D são melhores que 2D</div>
                 <div class="item-tema">• Café é melhor que chá</div>
                 <div class="item-tema">• Gatos são superiores a cães</div>
             </div>
             
             <div class="coluna-temas">
-                <div class="item-tema">• as IAs vão dominar o mundo</div>
+                <div class="item-tema">• As IAs vão dominar o mundo</div>
                 <div class="item-tema">• Batman com preparo não perde pra nenhum outro herói</div>
-                <div class="item-tema">• o feijão é por cima do arroz</div>
-                <div class="item-tema">• um urso de Kodiak ganha de um urso Polar</div>
+                <div class="item-tema">• O feijão é por cima do arroz</div>
+                <div class="item-tema">• Um urso de Kodiak ganha de um urso Polar</div>
             </div>
 
             <div class="coluna-temas">
-                <div class="item-tema">• o Streaming matou o cinema</div>
-                <div class="item-tema">• se o Brasil não tivesse sido colonizado, seria uma potência</div>
-                <div class="item-tema">• jogos de videogame não são esporte</div>
-                <div class="item-tema">• a Arte feita por IA não é arte</div>
+                <div class="item-tema">• O Streaming matou o cinema</div>
+                <div class="item-tema">• Se o Brasil não tivesse sido colonizado, seria uma potência</div>
+                <div class="item-tema">• Jogos de videogame não são esporte</div>
+                <div class="item-tema">• A Arte feita por IA não é arte</div>
             </div>
         </div>
 
@@ -165,9 +189,10 @@
 </div>
 
 
-<!-- Modal de Desafios -->
+<!-- ===== MODAL DE DESAFIOS ===== -->
 <div id="modal-desafios" class="modal-overlay escondido">
     <div class="modal-conteudo">
+        <!-- Cabeçalho do modal -->
         <div class="modal-cabecalho">
             <h2 class="modal-titulo">🏆 Desafios de Debate</h2>
             <button id="fechar-modal-desafios" class="botao-fechar-modal">
@@ -179,6 +204,7 @@
             Escolha se pôr em um desafio e teste suas habilidades de argumentação!
         </p>
         
+        <!-- Grid com 3 colunas de desafios (fácil, médio, difícil) -->
         <div class="lista-desafios-grid">
             <div class="coluna-desafios">
                 <div class="item-desafio" data-dificuldade="facil">
