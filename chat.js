@@ -17,9 +17,13 @@
 
     
 
+    let debateIniciado = false;
     function rolagemAutomatica() {
-        historico.scrollTop = historico.scrollHeight;
-    }
+    if (!debateIniciado) return;
+    historico.scrollTop = historico.scrollHeight;
+}
+
+
 
     function adicionarMensagemUsuario(texto) {
         const clone = templateUsuario.content.cloneNode(true);
@@ -133,7 +137,6 @@
         } finally {
             btnDebater.disabled = false;
             btnDebater.classList.remove('opacity-50', 'cursor-not-allowed');
-            rolagemAutomatica();
         }
     }
 
@@ -156,6 +159,9 @@
 
         removerMensagemInicial();
 
+        debateIniciado = true;
+
+
         await enviarParaAPI(texto);
     });
 
@@ -169,10 +175,6 @@
     });
 
     atualizarContador();
-
-    window.addEventListener('load', () => {
-        input.focus();
-    });
 
 
 
@@ -432,5 +434,12 @@ modalDesafios.addEventListener("click", (e) => {
         btnLimparTudo.addEventListener('click', confirmarLimpezaHistorico);
     }
 
+window.addEventListener('load', () => {
+    historico.scrollTop = 0;
+});
+
 })();
+
+
+
 
