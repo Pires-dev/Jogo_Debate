@@ -47,7 +47,7 @@ pip install -r requirements.txt
 Com o ambiente configurado, inicie a aplicação:
 uvicorn main:app --reload
 
-```bash
+```
 
 🛠️ Tecnologias Utilizadas
 O projeto foi construído utilizando as seguintes ferramentas:
