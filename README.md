@@ -47,6 +47,8 @@ pip install -r requirements.txt
 Com o ambiente configurado, inicie a aplicação:
 uvicorn main:app --reload
 
+```bash
+
 🛠️ Tecnologias Utilizadas
 O projeto foi construído utilizando as seguintes ferramentas:
 
@@ -60,5 +62,4 @@ Interatividade: JavaScript Assíncrono (Fetch API) para comunicação em tempo r
 
 Templates: Jinja2 para renderização dinâmica de páginas.
 
-Ícones e Fontes: FontAwesome e Google Fonts.
 
