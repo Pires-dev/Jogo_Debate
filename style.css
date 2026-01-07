@@ -1,21 +1,31 @@
+/* ===== ESTILIZAÇÃO DA SCROLLBAR DO HISTÓRICO ===== */
+
+/* Largura da barra de rolagem */
 #historico_debate::-webkit-scrollbar {
     width: 8px;
 }
 
+/* Trilha da barra de rolagem */
 #historico_debate::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 
+/* Polegar (parte que arrasta) da scrollbar com gradiente roxo-rosa */
 #historico_debate::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, #9333ea, #ec4899);
     border-radius: 10px;
 }
 
+/* Polegar ao passar o mouse */
 #historico_debate::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(to bottom, #a855f7, #f472b6);
 }
 
+
+/* ===== ANIMAÇÕES GERAIS ===== */
+
+/* Animação de entrada suave para mensagens (fade in + slide up) */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -27,10 +37,12 @@
     }
 }
 
+/* Aplica animação de entrada nas mensagens */
 .animacao-da-msg {
     animation: fadeIn 0.4s ease-out;
 }
 
+/* Animação de pulsação para as bolinhas de carregamento */
 @keyframes bounce {
     0%, 80%, 100% {
         transform: scale(0);
@@ -42,6 +54,7 @@
     }
 }
 
+/* Bolinhas animadas do indicador "Pensando..." */
 .animacao-carregando {
     width: 12px;
     height: 12px;
@@ -51,57 +64,7 @@
     display: inline-block;
 }
 
-.caixa-de-msg {
-    background: linear-gradient(135deg, #390496  0%, #8135c9 100%);
-    border-radius: 1.5rem;
-    border-top-right-radius: 0.25rem;
-    box-shadow: 0 10px 25px rgb(4, 2, 109);
-    transition: transform 0.2s;
-    color: #ffffff;
-}
-
-.caixa-de-msg:hover {
-    transform: translateX(-5px);
-}
-
-.txt-do-usuario {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    line-height: 1.5;
-    color: #ffffff;
-}
-
-.msg-IA {
-    background: rgba(55, 65, 81, 0.8);
-    border-radius: 1.5rem;
-    border-top-left-radius: 0.25rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(168, 85, 247, 0.3);
-    transition: transform 0.2s;
-}
-
-.msg-IA:hover {
-    transform: translateX(5px);
-    border-color: rgba(168, 85, 247, 0.5);
-}
-
-.txt-IA {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    line-height: 1.5;
-    color: #e5e7eb;
-}
-
-.msg-carregando {
-    background: rgba(55, 65, 81, 0.8);
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-#afirmacao-do-usuario:focus {
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
-}
-
+/* Animação de deslizamento do título para baixo */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -113,23 +76,7 @@
     }
 }
 
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    line-height: 1.3;
-    padding-bottom: 0.5rem;
-    background-size: 200% 200%;
-    animation: slideDown 0.8s ease-out, ondaGradiente 4s ease infinite;
-}
-
+/* Animação de onda no gradiente do título */
 @keyframes ondaGradiente {
     0% {
         background-position: 0% 50%;
@@ -142,45 +89,7 @@ header h1 {
     }
 }
 
-
-
-@media (max-width: 640px) {
-    .caixa-de-msg,
-    .msg-IA {
-        max-width: 90%;
-        font-size: 0.95rem;
-    }
-    
-    header h1 {
-        font-size: 2.5rem;
-        line-height: 1.3;
-        padding-bottom: 0.5rem;
-    }
-    
-    #historico_debate {
-        min-height: 300px;
-        max-height: 400px;
-    }
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-* {
-    transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-button {
-    user-select: none;
-}
-
-#botao-debater:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    animation: pulse 2s infinite;
-}
-
+/* Animação de pulsação para botão desabilitado */
 @keyframes pulse {
     0%, 100% {
         opacity: 0.6;
@@ -190,65 +99,203 @@ button {
     }
 }
 
-#contador-de-caracteres {
-    transition: color 0.3s ease;
-}
-
-#contador-de-caracteres.warning {
-    color: #fbbf24;
-    font-weight: bold;
-}
-
-#contador-de-caracteres.danger {
-    color: #ef4444;
-    font-weight: bold;
-}
-
-button#apagar-historico {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease !important;
-}
-
-button#apagar-historico:hover {
-    color: #ef4444 !important;
-    transform: scale(1.05) !important;
-}
-
-button#apagar-historico:hover i {
-    animation: shake 0.5s ease;
-}
-
-button#apagar-historico::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(239, 68, 68, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
-    z-index: -1;
-}
-
-button#apagar-historico:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
+/* Animação de tremor para o botão de lixeira */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px) rotate(-5deg); }
     75% { transform: translateX(5px) rotate(5deg); }
 }
 
+/* Animação de surgimento dos modais (slide up + scale) */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ===== ESTILIZAÇÃO DAS MENSAGENS ===== */
+
+/* Balão de mensagem do usuário (lado direito, roxo) */
+.caixa-de-msg {
+    background: linear-gradient(135deg, #390496 0%, #8135c9 100%);
+    border-radius: 1.5rem;
+    border-top-right-radius: 0.25rem; /* Pontinha no canto direito */
+    box-shadow: 0 10px 25px rgba(57, 4, 150, 0.4);
+    transition: transform 0.2s;
+    color: #ffffff;
+}
+
+/* Efeito hover no balão do usuário */
+.caixa-de-msg:hover {
+    transform: translateX(-5px);
+}
+
+/* Texto dentro do balão do usuário */
+.txt-do-usuario {
+    white-space: pre-wrap;  /* Preserva quebras de linha */
+    word-wrap: break-word;   /* Quebra palavras longas */
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+/* Balão de mensagem da IA (lado esquerdo, cinza) */
+.msg-IA {
+    background: rgba(55, 65, 81, 0.8);
+    border-radius: 1.5rem;
+    border-top-left-radius: 0.25rem; /* Pontinha no canto esquerdo */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    transition: transform 0.2s;
+}
+
+/* Efeito hover no balão da IA */
+.msg-IA:hover {
+    transform: translateX(5px);
+    border-color: rgba(168, 85, 247, 0.5);
+}
+
+/* Texto dentro do balão da IA */
+.txt-IA {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+    color: #e5e7eb;
+}
+
+/* Balão de carregamento "Pensando..." */
+.msg-carregando {
+    background: rgba(55, 65, 81, 0.8);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ===== ESTILIZAÇÃO DO FORMULÁRIO ===== */
+
+/* Borda brilhante ao focar no input */
+#afirmacao-do-usuario:focus {
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
+}
+
+/* Contador de caracteres */
+#contador-de-caracteres {
+    transition: color 0.3s ease;
+}
+
+/* Aviso amarelo quando próximo do limite */
+#contador-de-caracteres.warning {
+    color: #fbbf24;
+    font-weight: bold;
+}
+
+/* Aviso vermelho quando muito próximo do limite */
+#contador-de-caracteres.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+/* Botão de debater quando desabilitado */
+#botao-debater:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    animation: pulse 2s infinite;
+}
+
+
+/* ===== ESTILIZAÇÃO DO CABEÇALHO ===== */
+
+/* Título principal com animações */
+header h1 {
+    line-height: 1.3;
+    padding-bottom: 0.5rem;
+    background-size: 200% 200%;
+    /* Aplica animação de entrada + onda no gradiente */
+    animation: slideDown 0.8s ease-out, ondaGradiente 4s ease infinite;
+}
+
+/* Cor do título no modo escuro (padrão) - laranja/vermelho */
+header h1 {
+    background: linear-gradient(135deg, #c9531d 0%, #9e1a09 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Cor do título no modo claro - azul */
+body.tema-claro header h1 {
+    background: linear-gradient(135deg, #1619d1 0%, #0963ca 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Subtítulo com animação de entrada atrasada */
+header p {
+    animation: slideDown 1s ease-out !important;
+    animation-delay: 0.2s !important;
+    opacity: 0;
+    animation-fill-mode: forwards !important;
+}
+
+
+/* ===== RESPONSIVIDADE (MOBILE) ===== */
+
+@media (max-width: 640px) {
+    /* Balões de mensagem ocupam mais espaço em telas pequenas */
+    .caixa-de-msg,
+    .msg-IA {
+        max-width: 90%;
+        font-size: 0.95rem;
+    }
+    
+    /* Título menor em mobile */
+    header h1 {
+        font-size: 2.5rem;
+        line-height: 1.3;
+        padding-bottom: 0.5rem;
+    }
+    
+    /* Histórico com altura reduzida em mobile */
+    #historico_debate {
+        min-height: 300px;
+        max-height: 400px;
+    }
+}
+
+
+/* ===== CONFIGURAÇÕES GLOBAIS ===== */
+
+/* Scroll suave ao navegar por âncoras */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Transições suaves para elementos específicos */
+body, button, input, .modal-overlay, header p {
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Impede seleção de texto nos botões */
+button {
+    user-select: none;
+}
+
+/* Cor de fundo padrão do body */
 body {
     background-color: #0f172a;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+
+/* ===== BOTÕES DO TOPO ===== */
+
+/* Container dos botões no topo da página */
 .container-botoes-topo {
     display: flex;
     justify-content: space-between;
@@ -257,6 +304,15 @@ body {
     width: 100%;
 }
 
+/* Botões do lado esquerdo */
+.botoes-topo-esquerda {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    justify-content: flex-start;
+}
+
+/* Botões do lado direito */
 .botoes-topo-direita {
     display: flex;
     flex-direction: row;
@@ -265,6 +321,7 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Estilo base dos botões pequenos (tema, lixeira, sugestões, desafios) */
 button.botao-termo {
     width: 44px;
     height: 44px;
@@ -281,6 +338,7 @@ button.botao-termo {
     padding: 0;
 }
 
+/* Efeito hover nos botões pequenos */
 button.botao-termo:hover {
     background: rgba(255, 255, 255, 0.1) !important;
     border-color: rgba(255, 255, 255, 0.6) !important;
@@ -288,21 +346,53 @@ button.botao-termo:hover {
     transform: scale(1.05);
 }
 
+/* Efeito de clique nos botões pequenos */
 button.botao-termo:active {
     transform: scale(0.95);
 }
 
-/* Botões do canto esquerdo */
+/* Estilo especial para o botão de limpar histórico */
+#botao-limpar-tudo {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease !important;
+}
 
-.botoes-topo-esquerda {
-    display: flex;
-    flex-direction: row;
-    gap: 0.75rem;
-    justify-content: flex-start;
+/* Efeito hover no botão de lixeira */
+#botao-limpar-tudo:hover {
+    color: #ef4444 !important;
+    transform: scale(1.05) !important;
+}
+
+/* Animação de tremor no ícone da lixeira */
+#botao-limpar-tudo:hover i {
+    animation: shake 0.5s ease;
+}
+
+/* Efeito de onda vermelha ao passar o mouse */
+#botao-limpar-tudo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: -1;
+}
+
+#botao-limpar-tudo:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 
-/* Modal de Sugestões */
+/* ===== MODAIS (ESTRUTURA GERAL) ===== */
+
+/* Overlay escuro que cobre a tela quando modal está aberto */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -310,7 +400,7 @@ button.botao-termo:active {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);  /* Desfoca o fundo */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -319,35 +409,27 @@ button.botao-termo:active {
     transition: opacity 0.3s ease;
 }
 
+/* Classe que esconde o modal */
 .modal-overlay.escondido {
     opacity: 0;
-    pointer-events: none;
+    pointer-events: none;  /* Desabilita cliques quando escondido */
 }
 
+/* Conteúdo do modal (caixa central) */
 .modal-conteudo {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
     border-radius: 1.5rem;
     padding: 2rem;
     max-width: 900px;
     width: 90%;
-    max-height: 80vh;
+    max-height: 85vh;  /* Aumentado para melhor visualização */
     overflow-y: auto;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(168, 85, 247, 0.3);
     animation: slideUp 0.4s ease-out;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
+/* Cabeçalho do modal */
 .modal-cabecalho {
     display: flex;
     justify-content: space-between;
@@ -357,6 +439,7 @@ button.botao-termo:active {
     border-bottom: 2px solid rgba(168, 85, 247, 0.3);
 }
 
+/* Título do modal com gradiente */
 .modal-titulo {
     font-size: 2rem;
     font-weight: bold;
@@ -367,6 +450,7 @@ button.botao-termo:active {
     margin: 0;
 }
 
+/* Botão X para fechar modal */
 .botao-fechar-modal {
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -382,6 +466,7 @@ button.botao-termo:active {
     font-size: 1.25rem;
 }
 
+/* Efeito hover no botão de fechar (vermelho + rotação) */
 .botao-fechar-modal:hover {
     background: rgba(239, 68, 68, 0.2);
     border-color: #ef4444;
@@ -389,6 +474,7 @@ button.botao-termo:active {
     transform: rotate(90deg);
 }
 
+/* Subtítulo/descrição do modal */
 .modal-subtitulo {
     color: #9ca3af;
     font-size: 1rem;
@@ -397,6 +483,10 @@ button.botao-termo:active {
     font-style: italic;
 }
 
+
+/* ===== MODAL DE SUGESTÕES DE TEMAS ===== */
+
+/* Grid com 3 colunas de temas */
 .lista-temas-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -404,12 +494,14 @@ button.botao-termo:active {
     margin-bottom: 2rem;
 }
 
+/* Coluna individual de temas */
 .coluna-temas {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+/* Card de tema individual */
 .item-tema {
     background: rgba(55, 65, 81, 0.5);
     padding: 1rem 1.25rem;
@@ -421,6 +513,7 @@ button.botao-termo:active {
     cursor: pointer;
 }
 
+/* Efeito hover no tema */
 .item-tema:hover {
     background: rgba(168, 85, 247, 0.2);
     border-color: rgba(168, 85, 247, 0.5);
@@ -429,25 +522,9 @@ button.botao-termo:active {
 }
 
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .lista-temas-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .modal-conteudo {
-        padding: 1.5rem;
-        width: 95%;
-    }
-    
-    .modal-titulo {
-        font-size: 1.5rem;
-    }
-}
+/* ===== MODAL DE DESAFIOS ===== */
 
-
-/* Modal de Desafios */
+/* Grid com 3 colunas de desafios */
 .lista-desafios-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -455,12 +532,14 @@ button.botao-termo:active {
     margin-bottom: 2rem;
 }
 
+/* Coluna individual de desafios */
 .coluna-desafios {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+/* Card de desafio individual */
 .item-desafio {
     background: rgba(55, 65, 81, 0.5);
     padding: 1.25rem;
@@ -477,12 +556,14 @@ button.botao-termo:active {
     gap: 0.75rem;
 }
 
+/* Texto do desafio */
 .item-desafio p {
     margin: 0;
     line-height: 1.5;
     flex-grow: 1;
 }
 
+/* Badge de dificuldade (Fácil, Médio, Difícil) */
 .badge-dificuldade {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -494,52 +575,71 @@ button.botao-termo:active {
     align-self: flex-start;
 }
 
+/* Badge verde para dificuldade fácil */
 .badge-dificuldade.facil {
     background: rgba(34, 197, 94, 0.2);
     color: #4ade80;
     border: 1px solid rgba(34, 197, 94, 0.4);
 }
 
+/* Badge amarelo para dificuldade média */
 .badge-dificuldade.medio {
     background: rgba(251, 191, 36, 0.2);
     color: #fbbf24;
     border: 1px solid rgba(251, 191, 36, 0.4);
 }
 
+/* Badge vermelho para dificuldade difícil */
 .badge-dificuldade.dificil {
     background: rgba(239, 68, 68, 0.2);
     color: #ef4444;
     border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
-/* Responsivo para desafios */
+
+/* ===== RESPONSIVIDADE DOS MODAIS ===== */
+
 @media (max-width: 768px) {
+    /* Modais viram coluna única em mobile */
+    .lista-temas-grid,
     .lista-desafios-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
     
+    /* Modal ocupa mais espaço em mobile */
+    .modal-conteudo {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    /* Título menor em mobile */
+    .modal-titulo {
+        font-size: 1.5rem;
+    }
+    
+    /* Desafios sem altura mínima em mobile */
     .item-desafio {
         min-height: auto;
     }
 }
 
 
-/* === SISTEMA DE TEMAS === */
+/* ===== SISTEMA DE TEMAS (CLARO/ESCURO) ===== */
 
-/* Tema Escuro (padrão) */
+/* Fundo do modo escuro (padrão) - gradiente preto para roxo */
 body {
     background-image: linear-gradient(135deg, #000000 0%, #4c1d95 100%) !important;
     background-attachment: fixed !important;
     transition: background-image 0.5s ease !important;
 }
 
-/* Tema Claro */
+/* Fundo do modo claro - gradiente ciano para branco */
 body.tema-claro {
     background-image: linear-gradient(135deg, #00d4ff 0%, #ffffff 100%) !important;
 }
 
-/* Containers no modo escuro */
+/* Containers com fundo cinza no modo escuro */
 body:not(.tema-claro) #historico_debate,
 body:not(.tema-claro) .bg-gray-800\/50 {
     background: rgba(55, 65, 81, 0.6) !important;
@@ -554,7 +654,7 @@ body:not(.tema-claro) .msg-carregando {
     background: rgba(55, 65, 81, 0.6) !important;
 }
 
-/* Containers e botões no modo claro */
+/* Containers com fundo mais escuro no modo claro */
 body.tema-claro #historico_debate,
 body.tema-claro .bg-gray-800\/50 {
     background: rgba(30, 41, 59, 0.85) !important;
@@ -569,6 +669,7 @@ body.tema-claro .msg-carregando {
     background: rgba(30, 41, 59, 0.7) !important;
 }
 
+/* Botões pequenos com fundo mais escuro no modo claro */
 body.tema-claro button.botao-termo {
     background: rgba(30, 41, 59, 0.5) !important;
     border-color: rgba(30, 41, 59, 0.6) !important;
@@ -578,38 +679,33 @@ body.tema-claro button.botao-termo:hover {
     background: rgba(30, 41, 59, 0.7) !important;
 }
 
-/* Subtítulo no modo claro */
+/* Subtítulo preto no modo claro */
 body.tema-claro header p {
     color: #000000 !important;
     font-weight: 500;
 }
 
-/* Título */
-body.tema-claro header h1 {
-    background: linear-gradient(135deg, #1619d1 0%, #0963ca 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
+/* Itens de tema/desafio mais escuros no modo claro */
+body.tema-claro .item-tema,
+body.tema-claro .item-desafio {
+    color: #1e293b;
 }
 
-body.tema-escuro header h1 {
-    background: linear-gradient(135deg, #c9531d 0%, #9e1a09 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
+body.tema-claro .modal-subtitulo {
+    color: #475569;
 }
 
-/* Botão debater - roxo em ambos os modos */
+/* Ícone do botão de tema muda para sol no modo claro */
+body.tema-claro #botao-mudar-tema i::before {
+    content: "\f185"; /* Código do ícone de sol do Font Awesome */
+}
+
+/* Botão debater - roxo escuro em ambos os modos */
 #botao-debater {
     background: linear-gradient(135deg, #400b9b 0%, #4d2edab2 100%) !important;
 }
 
-/* Ícone do botão de tema */
-body.tema-claro #botao-mudar-tema i::before {
-    content: "\f185"; /* Sol */
-}
-
-/* Transições suaves */
+/* Transições suaves ao trocar de tema */
 #historico_debate,
 .bg-gray-800\/50,
 #afirmacao-do-usuario,
@@ -621,24 +717,29 @@ header p {
 }
 
 
-/* === Modal de Confirmação === */
+/* ===== MODAL DE CONFIRMAÇÃO DE LIMPEZA ===== */
+
+/* Modal menor para confirmações */
 .modal-confirmacao-pequeno {
     max-width: 500px !important;
     padding: 2rem !important;
 }
 
+/* Texto de confirmação */
 .texto-confirmacao {
-    color: var(--cor-texto-secundario, #9ca3af);
+    color: #9ca3af;
     font-size: 1rem;
     line-height: 1.6;
     margin: 1.5rem 0 2rem 0;
     text-align: center;
 }
 
+/* Texto mais escuro no modo claro */
 body.tema-claro .texto-confirmacao {
-    color: #1e293b;
+    color: #bfc7d4;
 }
 
+/* Container dos botões de confirmação */
 .botoes-confirmacao {
     display: flex;
     gap: 1rem;
@@ -646,6 +747,7 @@ body.tema-claro .texto-confirmacao {
     flex-wrap: wrap;
 }
 
+/* Estilo base dos botões de confirmação */
 .botao-cancelar,
 .botao-confirmar-perigo {
     padding: 0.75rem 1.5rem;
@@ -662,6 +764,7 @@ body.tema-claro .texto-confirmacao {
     justify-content: center;
 }
 
+/* Botão cancelar (cinza) */
 .botao-cancelar {
     background: rgba(100, 116, 139, 0.2);
     color: #e5e7eb;
@@ -674,16 +777,18 @@ body.tema-claro .texto-confirmacao {
     transform: translateY(-2px);
 }
 
+/* Botão cancelar no modo claro */
 body.tema-claro .botao-cancelar {
-    background: rgba(100, 116, 139, 0.15);
-    color: #1e293b;
-    border-color: rgba(100, 116, 139, 0.5);
+    background: rgba(134, 155, 184, 0.15);
+    color: #c2d9df;
+    border-color: rgba(163, 174, 189, 0.5);
 }
 
 body.tema-claro .botao-cancelar:hover {
     background: rgba(100, 116, 139, 0.25);
 }
 
+/* Botão confirmar (vermelho - perigoso) */
 .botao-confirmar-perigo {
     background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
     color: #ffffff;
@@ -701,7 +806,10 @@ body.tema-claro .botao-cancelar:hover {
     transform: translateY(0);
 }
 
-/* === Notificações === */
+
+/* ===== NOTIFICAÇÕES (TOAST) ===== */
+
+/* Notificação que aparece no canto superior direito */
 .notificacao {
     position: fixed;
     top: 20px;
@@ -713,42 +821,50 @@ body.tema-claro .botao-cancelar:hover {
     gap: 0.75rem;
     font-weight: 500;
     font-size: 1rem;
-    z-index: 9999;
+    z-index: 9999;  /* Sempre no topo */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     opacity: 0;
-    transform: translateX(400px);
+    transform: translateX(400px);  /* Começa fora da tela */
     transition: all 0.3s ease;
 }
 
+/* Notificação visível (desliza para dentro) */
 .notificacao-visivel {
     opacity: 1;
     transform: translateX(0);
 }
 
+/* Notificação de sucesso (verde) */
 .notificacao-sucesso {
     background: linear-gradient(135deg, #059669 0%, #10b981 100%);
     color: #ffffff;
     border: 2px solid rgba(16, 185, 129, 0.4);
 }
 
+/* Notificação de erro (vermelho) */
 .notificacao-erro {
     background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
     color: #ffffff;
     border: 2px solid rgba(239, 68, 68, 0.4);
 }
 
+/* Ícone dentro da notificação */
 .notificacao i {
     font-size: 1.25rem;
 }
 
-/* Responsivo para notificações */
+
+/* ===== RESPONSIVIDADE DAS NOTIFICAÇÕES ===== */
+
 @media (max-width: 640px) {
+    /* Notificação ocupa largura total em mobile */
     .notificacao {
         right: 10px;
         left: 10px;
         top: 10px;
     }
     
+    /* Botões viram coluna em mobile */
     .botoes-confirmacao {
         flex-direction: column;
     }
