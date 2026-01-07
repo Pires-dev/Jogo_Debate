@@ -1,0 +1,22 @@
+# Arquivos generados pelo Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Ambiente virtual
+.venv
+
+# Ignorar chaves de API e configurações sensíveis
+.env
+
+# Ignorar ambiente virtual e cache do Python
+.venv/
+__pycache__/
+*.pyc
+
+# Ignorar pastas de configuração do VS Code e sistema
+.vscode/
+.DS_Store
